@@ -2,20 +2,19 @@ import Fluent
 import FluentPostgresDriver
 import Vapor
 
-// configures your application
+// Configure migrations, database connection, register routes (endpoints)...
 public func configure(_ app: Application) throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    // Allow program to access public folder
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
-    app.databases.use(.postgres(
-        hostname: Environment.get("DATABASE_HOST") ?? "localhost",
-        port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? PostgresConfiguration.ianaPortNumber,
-        username: Environment.get("DATABASE_USERNAME") ?? "vapor_username",
-        password: Environment.get("DATABASE_PASSWORD") ?? "vapor_password",
-        database: Environment.get("DATABASE_NAME") ?? "vapor_database"
-    ), as: .psql)
-
-    app.migrations.add(CreateTodo())
+    guard let jwtKey = Environment.process.JWT_KEY else { fatalError("JWT_KEY not found") }
+    guard let _ = Environment.process.API_KEY else { fatalError("API_KEY not found") }
+    guard let dbURL = Environment.process.DATABASE_URL else { fatalError("DATABASE_URL not found") }
+    guard let _ = Environment.process.APP_BUNDLE_ID else { fatalError("APP_BUNDLE_ID not found") }
+    
+    // DB connection
+    try app.databases.use(.postgres(url: dbURL), as: .psql)
+    
 
     // register routes
     try routes(app)
