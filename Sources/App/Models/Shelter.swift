@@ -26,11 +26,11 @@ final class Shelter: Model, Content {
     @Field(key: "phoneNumber")
     var phoneNumber: String
     
-    @Field(key: "type")
-    var type: String
-    
     @Group(key: "address")
     var address: Address
+    
+    @Enum(key: "shelterType")
+    var shelterType: ShelterType
     
     @OptionalField(key: "imageURL")
     var photoURL: String?
@@ -38,13 +38,13 @@ final class Shelter: Model, Content {
     // Inits
     init() {}
     
-    internal init(id: UUID? = nil, name: String, password: String, phoneNumber: String, type: String, address: Address, photoURL: String? = nil) {
+    internal init(id: UUID? = nil, name: String, password: String, phoneNumber: String, address: Address, shelterType: ShelterType, photoURL: String? = nil) {
         self.id = id
         self.name = name
         self.password = password
         self.phoneNumber = phoneNumber
-        self.type = type
         self.address = address
+        self.shelterType = shelterType
         self.photoURL = photoURL
     }
 }
@@ -56,8 +56,8 @@ extension Shelter {
         let name: String
         var password: String
         let phoneNumber: String
-        let type: String
         let address: Address
+        let shelterType: ShelterType
     }
     //DTO used to sign in
     struct SignIn: Content {

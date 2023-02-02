@@ -26,8 +26,8 @@ struct AuthController: RouteCollection {
         let shelter = Shelter(name: reqBody.name,
                               password: reqBody.password,
                               phoneNumber: reqBody.phoneNumber,
-                              type: reqBody.type,
-                              address: reqBody.address)
+                              address: reqBody.address,
+                              shelterType: reqBody.shelterType)
         try await shelter.create(on: req.db)
         
         // Get the access token of the created shelter
