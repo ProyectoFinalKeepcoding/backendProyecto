@@ -64,10 +64,13 @@ extension Shelter {
         let name: String
         let password: String
     }
-    // DTO that contains the info to be showed when requested by an user
-    struct Public: Content {
+    // DTO that contains the info to be showed on map when requested by an user
+    struct Map: Content {
+        let id: UUID
         let name: String
         let phoneNumber: String
+        let address: Address
+        let shelterType: ShelterType
     }
 }
 

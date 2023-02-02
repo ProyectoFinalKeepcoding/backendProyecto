@@ -42,6 +42,7 @@ struct ModelsMigration: AsyncMigration {
     func revert(on database: Database) async throws {
         try await Shelter.query(on: database).delete()
         try await database.schema(Shelter.schema).delete()
+        try await database.enum("shelterType").delete()
     }
     
 }
