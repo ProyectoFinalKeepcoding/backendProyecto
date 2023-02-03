@@ -23,7 +23,7 @@ struct ModelsMigration: AsyncMigration {
             .field("address_longitude", .double, .required)
             .field("address_latitude", .double, .required)
             .field("shelterType", shelterType, .required)
-            .field("imageURL", .string)
+            .field("photoURL", .string)
             .unique(on: "name")
             .create()
         

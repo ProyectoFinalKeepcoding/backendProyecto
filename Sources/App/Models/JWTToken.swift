@@ -17,12 +17,13 @@ struct JWTToken: Content, JWTPayload, Authenticatable {
             throw JWTError.claimVerificationFailure(name: "Issuer Claim", reason: "Issuer is not valid")
         }
         
-        // Validate subject
+        // Subject must be an UUID convertible object
         guard let _ = UUID(sub.value) else {
             throw JWTError.claimVerificationFailure(name: "Subject Claim", reason: "Subject ID is not valid")
         }
     }
     
+    // Generates a token without expiration time for an user with id userId
     static func generateTokenFor(user userId: UUID) -> JWTToken {
         return JWTToken(iss: .init(value: Environment.process.APP_BUNDLE_ID!), sub: .init(value: userId.uuidString))
     }

@@ -13,6 +13,9 @@ public func configure(_ app: Application) async throws {
     guard let dbURL = Environment.process.DATABASE_URL else { fatalError("DATABASE_URL not found") }
     guard let _ = Environment.process.APP_BUNDLE_ID else { fatalError("APP_BUNDLE_ID not found") }
     
+    // Set maximum of size to files uploaded to the server
+    app.routes.defaultMaxBodySize = "10mb"
+    
     // Configure Jason Web Tokens to be encoded with the JWT of the .env file using the hs256 algorithm
     app.jwt.signers.use(.hs256(key: JWTKey))
     
@@ -21,7 +24,7 @@ public func configure(_ app: Application) async throws {
     
     // Migration of the models
     app.migrations.add(ModelsMigration())
-    try await app.autoMigrate()
+    try await app.autoMigrate()    
 
     // register routes
     try routes(app)

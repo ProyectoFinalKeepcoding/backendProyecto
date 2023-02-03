@@ -32,7 +32,7 @@ final class Shelter: Model, Content {
     @Enum(key: "shelterType")
     var shelterType: ShelterType
     
-    @OptionalField(key: "imageURL")
+    @OptionalField(key: "photoURL")
     var photoURL: String?
     
     // Inits

@@ -9,6 +9,7 @@ func routes(_ app: Application) throws {
             try builder.register(collection: TestController())
             try builder.register(collection: AuthController())
             try builder.register(collection: ShelterController())
+            try builder.register(collection: ImageUploadController())
         }
     }
 }
