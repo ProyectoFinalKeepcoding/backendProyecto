@@ -14,7 +14,7 @@ struct ShelterController: RouteCollection {
     // Gets all shelters from the database and maps them to shelters to be shown to the user on map
     func allShelters(req: Request) async throws -> [Shelter.Map] {
         try await Shelter.query(on: req.db).all().map { dbShelter in
-            try Shelter.Map(id: dbShelter.requireID(), name: dbShelter.name, phoneNumber: dbShelter.phoneNumber, address: dbShelter.address, shelterType: dbShelter.shelterType)
+            try Shelter.Map(id: dbShelter.requireID(), name: dbShelter.name, phoneNumber: dbShelter.phoneNumber, address: dbShelter.address, shelterType: dbShelter.shelterType, photoURL: dbShelter.photoURL)
         }
     }
     // Gets one shelter by id and map it to be shown to the user on map
@@ -29,6 +29,6 @@ struct ShelterController: RouteCollection {
         }
         
         // Return the shelter ready to be shown
-        return try Shelter.Map(id: shelter.requireID(), name: shelter.name, phoneNumber: shelter.phoneNumber, address: shelter.address, shelterType: shelter.shelterType)
+        return try Shelter.Map(id: shelter.requireID(), name: shelter.name, phoneNumber: shelter.phoneNumber, address: shelter.address, shelterType: shelter.shelterType, photoURL: shelter.photoURL)
     }
 }

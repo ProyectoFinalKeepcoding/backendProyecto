@@ -58,6 +58,7 @@ extension Shelter {
         let phoneNumber: String
         let address: Address
         let shelterType: ShelterType
+        var photoURL: String?
     }
     //DTO used to sign in
     struct SignIn: Content {
@@ -71,6 +72,7 @@ extension Shelter {
         let phoneNumber: String
         let address: Address
         let shelterType: ShelterType
+        var photoURL: String?
     }
 }
 
