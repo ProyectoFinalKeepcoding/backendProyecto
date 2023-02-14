@@ -12,6 +12,7 @@ struct ModelsMigration: AsyncMigration {
             .case("particular")
             .case("shelterPoint")
             .case("localGovernment")
+            .case("kiwokoStore")
             .create()
         
         // Create the model Shelter in the database
@@ -35,7 +36,12 @@ struct ModelsMigration: AsyncMigration {
             let shelterParticular3 = Shelter(name: "Joakin", password: "123", phoneNumber: "44433421", address: Address(latitude: 40.422989, longitude: -3.637153), shelterType: .particular)
         let shelterVeterinary = Shelter(name: "Aitor", password: "123", phoneNumber: "44433421", address: Address(latitude: 43.262217, longitude: -2.872610), shelterType: .veterinary)
         let localGovernment = Shelter(name: "Robert", password: "123", phoneNumber: "44433421", address: Address(latitude: 43.229454, longitude: -3.205004), shelterType: .localGovernment)
-            try await [shelterParticular1, shelterParticular2, shelterParticular3, shelterVeterinary, localGovernment].create(on: database)
+        let kiwokoStore1 = Shelter(name: "KiwokoStore1", password: "123", phoneNumber: "23423242112454232", address: Address(latitude: 40.4410353, longitude: -3.9992455), shelterType: .kiwokoStore)
+        let kiwokoStore2 = Shelter(name: "KiwokoStore2", password: "123", phoneNumber: "918167789", address: Address(latitude: 40.45283915, longitude: -3.8682917800496277), shelterType: .kiwokoStore)
+        let kiwokoStore3 = Shelter(name: "KiwokoStore3", password: "123", phoneNumber: "918167787", address: Address(latitude: 40.3446868, longitude: -3.8486131), shelterType: .kiwokoStore)
+        let shelterVeterinary2 = Shelter(name: "VeterinarySevillaLaNuevaWithLongName", password: "123", phoneNumber: "666909898", address: Address(latitude: 40.3475422, longitude: -4.0275268), shelterType: .veterinary)
+
+            try await [shelterParticular1, shelterParticular2, shelterParticular3, shelterVeterinary, localGovernment, kiwokoStore1, kiwokoStore2, kiwokoStore3, shelterVeterinary2].create(on: database)
         #else
         #endif
         

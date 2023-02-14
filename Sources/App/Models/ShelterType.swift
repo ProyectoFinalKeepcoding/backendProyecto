@@ -12,4 +12,5 @@ enum ShelterType: String, Codable {
     case particular
     case shelterPoint
     case localGovernment
+    case kiwokoStore
 }
