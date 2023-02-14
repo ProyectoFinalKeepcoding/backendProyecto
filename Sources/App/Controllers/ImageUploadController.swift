@@ -6,7 +6,9 @@ struct ImageUploadController: RouteCollection {
     
     // MARK: - Override
     func boot(routes: Vapor.RoutesBuilder) throws {
-        routes.post("upload", ":id", use: upload)
+        routes.group(JWTToken.authenticator(), JWTToken.guardMiddleware()) { builder in
+            builder.post("upload", ":id", use: upload)
+        }
     }
     
     // MARK: - Routes
