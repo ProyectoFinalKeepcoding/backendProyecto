@@ -41,7 +41,7 @@ struct AuthController: RouteCollection {
         return signedToken
     }
     
-    func signIn(req: Request) async throws -> String {
+    func signIn(req: Request) async throws -> [String] {
         
         // Get shelter that is signing in
         let shelter = try req.auth.require(Shelter.self)
@@ -54,6 +54,6 @@ struct AuthController: RouteCollection {
         
         // Sign the token with the APIKey and return it
         let signedToken = try req.jwt.sign(token)
-        return signedToken
+        return [signedToken, shelterId.uuidString]
     }
 }

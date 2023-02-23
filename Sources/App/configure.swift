@@ -19,6 +19,9 @@ public func configure(_ app: Application) async throws {
     // Configure Jason Web Tokens to be encoded with the JWT of the .env file using the hs256 algorithm
     app.jwt.signers.use(.hs256(key: JWTKey))
     
+    // Config passwords hashes
+    app.passwords.use(.bcrypt)
+    
     // DB connection
     try app.databases.use(.postgres(url: dbURL), as: .psql)
     
