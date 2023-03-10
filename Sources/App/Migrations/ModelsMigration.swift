@@ -2,8 +2,15 @@
 import Vapor
 import Fluent
 
+/**
+Version control of the models in the database
+ */
 struct ModelsMigration: AsyncMigration {
     
+    /**
+     Sets up the objects, tables and relations of the database
+     - Parameter database: The database where the objects, tables and relations will be created in
+     */
     func prepare(on database: FluentKit.Database) async throws {
         
         // Create enum shelterType
@@ -47,6 +54,10 @@ struct ModelsMigration: AsyncMigration {
         
     }
     
+    /**
+     Reverts the effects of the prepare function
+     - Parameter database: The database object of reversion
+     */
     func revert(on database: Database) async throws {
         try await Shelter.query(on: database).delete()
         try await database.schema(Shelter.schema).delete()

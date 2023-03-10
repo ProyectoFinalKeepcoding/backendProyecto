@@ -3,7 +3,15 @@ import FluentPostgresDriver
 import Vapor
 import JWT
 
-// Configure migrations, database connection, register routes (endpoints)...
+/**
+Configures the application.
+
+This function is called before the application starts and should be used for setting up
+database connection, registering routes, configuring migrations, etc.
+
+- Parameter app: The application to configure.
+- Throws: Any error that occurs during the configuration of the application.
+*/
 public func configure(_ app: Application) async throws {
     // Allow program to access public folder
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))

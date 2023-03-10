@@ -2,7 +2,9 @@
 import Vapor
 import JWT
 
-
+/**
+ Jason Web Token model
+ */
 struct JWTToken: Content, JWTPayload, Authenticatable {
     
     // MARK: - Properties
@@ -10,6 +12,11 @@ struct JWTToken: Content, JWTPayload, Authenticatable {
     var sub: SubjectClaim
     
     // MARK: - JWTPayload
+    /**
+     Verifies that the signer of the JWT is valid
+     - Parameter signer: The signer of the JWT
+     - Throws: A claim verification failure if the signer is not calling the method from the app bundle or is not an UUID convertible object
+     */
     func verify(using signer: JWTSigner) throws {
         
         // Make sure that only the app defined under APP_BUNDLE_ID in the .env file access this server
@@ -23,7 +30,10 @@ struct JWTToken: Content, JWTPayload, Authenticatable {
         }
     }
     
-    // Generates a token without expiration time for an user with id userId
+    /**
+     Generates a token without expiration time for an user with id
+     - Parameter userId:The user id
+     */
     static func generateTokenFor(user userId: UUID) -> JWTToken {
         return JWTToken(iss: .init(value: Environment.process.APP_BUNDLE_ID!), sub: .init(value: userId.uuidString))
     }

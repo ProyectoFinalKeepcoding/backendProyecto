@@ -2,9 +2,17 @@
 import Vapor
 import Fluent
 
+/**
+ Collection of routes to upload images
+ */
 struct ImageUploadController: RouteCollection {
     
     // MARK: - Override
+    /**
+     Sets up the routes to upload photos to the server
+     
+     - Parameter routes: The routes builder
+     */
     func boot(routes: Vapor.RoutesBuilder) throws {
         routes.group(JWTToken.authenticator(), JWTToken.guardMiddleware()) { builder in
             builder.post("upload", ":id", use: upload)
@@ -12,7 +20,14 @@ struct ImageUploadController: RouteCollection {
     }
     
     // MARK: - Routes
-    // Uploads a picture to the server into the public folder with a name depending on the id of the shelter
+    /**
+     Uploads a picture to the server into the public folder with a name depending on the id of the shelter
+     
+     The photo is uploaded with .png extension
+     
+     - Parameter req: The request of the upload photo call
+     - Throws Not found abort error if the id does not match any of the database existent id
+     */
     func upload(_ req: Request) throws -> EventLoopFuture<Response> {
         // Decode the photo uploaded as a byte array in the response to the ImageUploadData struct
         let data = try req.content.decode(ImageUploadData.self)

@@ -2,9 +2,17 @@
 import Vapor
 import Fluent
 
+/**
+ Collection of routes used to authenticate shelters
+ */
 struct AuthController: RouteCollection {
 
     // MARK: - Override
+    /**
+     Sets up the authentication routes signup and sign in under the auth path
+     
+     - Parameter routes: The routes builder
+     */
     func boot(routes: Vapor.RoutesBuilder) throws {
         routes.group("auth") { builder in
             builder.post("signup", use: signUp)
@@ -15,7 +23,14 @@ struct AuthController: RouteCollection {
     }
     
     // MARK: - Routes
-    // Creates an user (shelter) in the database and returns the access token that doesn't expire
+    /**
+     Creates a shelter  in the database shelter table and returns an access token that doesn't expire
+     
+     - Parameter req: The request of the sign up call
+     - Throws Unprocessable entity error if the shelter id is null
+     - Returns: A string token that is signed by the shelter
+     
+     */
     func signUp(req: Request) async throws -> String {
         
         // Get the shelter that tries to sign up
@@ -40,7 +55,14 @@ struct AuthController: RouteCollection {
         let signedToken = try req.jwt.sign(token)
         return signedToken
     }
-    
+    /**
+     Verifies that a shelter is registered in the database and matches the encrypted password
+     
+     - Parameter req: The request of the sign in call
+     - Throws Unprocessable entity error if the shelter id is null
+     - Returns: An array of string whose first element is the token and the second element is the id of the shelter
+     
+     */
     func signIn(req: Request) async throws -> [String] {
         
         // Get shelter that is signing in
